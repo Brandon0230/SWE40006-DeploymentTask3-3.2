@@ -1,0 +1,36 @@
+﻿@model IEnumerable<DeploymentTask3.Models.Tasks>
+
+@{
+    ViewData["Title"] = "Tasks List";
+}
+
+<h2>To Do List</h2>
+
+<form asp-action="Create" method="post" class="mb-3">
+    <div class="form-group">
+        <input type="text" required pattern="\S.*" name="Description" class="form-control" placeholder="Enter task description" />
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Add Task</button>
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Tasks</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var task in Model)
+        {
+            <tr>
+                <td>
+                    <form asp-action="Remove" method="post">
+                        <input type="hidden" name="id" value="@task.Id" />
+                        <input type="checkbox" onchange="this.form.submit()" />
+                    </form>
+                </td>
+                <td>@task.Description</td>
+            </tr>
+        }
+    </tbody>
+</table>
